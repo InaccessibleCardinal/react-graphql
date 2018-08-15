@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>Temp Client</title>
+</head>
+<body>
+    <button id="btn">Test</button>
+    <script>
+        "use strict";
+        let b = document.getElementById('btn');
+        b.addEventListener('click', testGQL);
+        let urlRoot = 'http://localhost:9000/graphql/';
+        let q = '{user(id: 5){name}}';
+
+        let query = '?query=' + encodeURI(q);
+        let url = urlRoot + query;
+
+        function testGQL() {
+            let req = new XMLHttpRequest();
+            req.open('GET', url);
+            req.onreadystatechange = function() {
+                if (this.status === 200 && this.readyState === 4) {
+                    console.log(this.responseText);
+                }
+            }
+            req.send();
+        }
+    </script>
+</body>
+</html>
